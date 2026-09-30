@@ -7,7 +7,7 @@ class Student {
 public:
     Student(std::string id, std::string name);
 
-    void addMark(std::string subject, int mark);
+    void addMark(const std::string& subject, int mark);
     double average() const;
     int best() const;
     std::string grade() const;
@@ -16,5 +16,5 @@ public:
     std::string name;
     std::vector<std::string> subjects;
     std::vector<int> marks;
-    int rank;
+    int rank = 0;
 };

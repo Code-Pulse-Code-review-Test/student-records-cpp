@@ -1,8 +1,10 @@
 #include "student.h"
 
-Student::Student(std::string id, std::string name) : id(id), name(name) {}
+#include <utility>
 
-void Student::addMark(std::string subject, int mark) {
+Student::Student(std::string id, std::string name) : id(std::move(id)), name(std::move(name)) {}
+
+void Student::addMark(const std::string& subject, int mark) {
     subjects.push_back(subject);
     marks.push_back(mark);
 }
