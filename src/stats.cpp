@@ -64,3 +64,59 @@ double classAverage(const std::vector<Student>& students) {
     }
     return total / count;
 }
+
+void printSubjectReport(const std::vector<Student>& students) {
+    if (students.empty()) {
+        return;
+    }
+    const std::vector<std::string>& subjects = students[0].subjects;
+    for (int i = 0; i < (int)subjects.size(); i++) {
+        double total = 0;
+        int count = 0;
+        int top = -1;
+        std::string topName = "";
+        for (int j = 0; j < (int)students.size(); j++) {
+            if (i < (int)students[j].marks.size()) {
+                total += students[j].marks[i];
+                count++;
+                if (students[j].marks[i] > top) {
+                    top = students[j].marks[i];
+                    topName = students[j].name;
+                }
+            }
+        }
+        int low = 101;
+        std::string lowName = "";
+        for (int j = 0; j < (int)students.size(); j++) {
+            if (i < (int)students[j].marks.size()) {
+                if (students[j].marks[i] < low) {
+                    low = students[j].marks[i];
+                    lowName = students[j].name;
+                }
+            }
+        }
+        int passed = 0;
+        int failed = 0;
+        for (int j = 0; j < (int)students.size(); j++) {
+            if (i < (int)students[j].marks.size()) {
+                if (students[j].marks[i] >= 40) {
+                    passed++;
+                } else {
+                    failed++;
+                }
+            }
+        }
+        std::cout << subjects[i] << "\n";
+        if (count > 0) {
+            std::cout << "  Average: " << total / count << "\n";
+        }
+        std::cout << "  Top: " << topName << " (" << top << ")\n";
+        std::cout << "  Lowest: " << lowName << " (" << low << ")\n";
+        std::cout << "  Passed: " << passed << " Failed: " << failed << "\n";
+        if (failed > passed) {
+            std::cout << "  ** more than half failed **\n";
+        } else if (failed * 4 > passed) {
+            std::cout << "  * check this subject *\n";
+        }
+    }
+}
